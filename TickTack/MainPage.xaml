@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TickTack"
+             xmlns:drawables="clr-namespace:TickTack.Drawables"
+             x:Class="TickTack.MainPage">
+
+    <Grid>
+        <GraphicsView x:Name="ClockView"
+                      WidthRequest="400"
+                      HeightRequest="400"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>
