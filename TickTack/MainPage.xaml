@@ -6,11 +6,76 @@
              x:Class="TickTack.MainPage">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
         <GraphicsView x:Name="ClockView"
                       WidthRequest="400"
                       HeightRequest="400"
                       HorizontalOptions="Center"
-                      VerticalOptions="Center" />
-    </Grid>
+                      VerticalOptions="Center" 
+                      Grid.Row="0" 
+                      Grid.Column="0"/>
 
+        <VerticalStackLayout Grid.Row ="0"
+                             Grid.Column="1"
+                             Padding="15"
+                             Spacing="50"
+                             BackgroundColor ="AliceBlue">
+            <VerticalStackLayout Spacing="20">
+                <Label Text="Настройка часов" 
+                       FontSize="16"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Время:" 
+                           VerticalOptions="Center" />
+                    <TimePicker x:Name="TimeInput" 
+                                FontSize="22" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Скорость:" 
+                           VerticalOptions="Center" />
+                    <Entry x:Name="SpeedInput"
+                           Keyboard="Numeric"
+                           Placeholder="1"
+                           WidthRequest="80"
+                           FontSize="22"/>
+                </HorizontalStackLayout>
+                <Button x:Name="ApplyButton"
+                        Text="Применить" 
+                        Clicked="OnApplyClicked"/>
+                <Button x:Name="ResetButton"
+                        Text="Сбросить" 
+                        Clicked="OnToSystemClicked"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Будильник" 
+                       FontSize="16"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Время:" 
+                           VerticalOptions="Center" />
+                    <TimePicker x:Name="AlarmInput" 
+                                FontSize="22" />
+                </HorizontalStackLayout>
+                <Button x:Name="AddAlarmButton" 
+                        Text="Добавить" 
+                        Clicked="OnAddAlarmClicked" />
+                <CollectionView x:Name="AlarmList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Spacing="10" 
+                                                   Padding="5">
+                                <Label Text="{Binding}" 
+                                       VerticalOptions="Center" />
+                                <Button Text="Удалить"
+                                        Clicked="OnDeleteAlarmClicked"
+                                        CommandParameter="{Binding}" />
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

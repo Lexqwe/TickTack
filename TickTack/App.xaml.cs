@@ -1,20 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace TickTack
-{
-    public partial class App : Application
-    {
-        private readonly IServiceProvider _services;
-        public App(IServiceProvider services)
-        {
-            InitializeComponent();
-            _services = services;
-        }
+namespace TickTack;
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            var mainPage = _services.GetRequiredService<MainPage>();
-            return new Window(mainPage);
-        }
+public partial class App : Application
+{
+    private readonly IServiceProvider _services;
+    public App(IServiceProvider services)
+    {
+        InitializeComponent();
+        _services = services;
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        var mainPage = _services.GetRequiredService<MainPage>();
+        return new Window(mainPage);
     }
 }

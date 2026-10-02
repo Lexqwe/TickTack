@@ -2,45 +2,17 @@
 
 namespace TickTack.Services;
 
-public class ClockService
+public class ClockService : IClockService
 {
-    private Clock _clock = new();
-    private IDispatcherTimer _timer;
-    public event Action? TimeUpdated;
-    public ClockService(IDispatcher dispatcher)
+    public List<IClock> AvailableClocks { get; } = new()
     {
-        _timer = dispatcher.CreateTimer();
-        _timer.Interval = TimeSpan.FromSeconds(1);
-        _timer.IsRepeating = true;
-        _timer.Tick += OnTick;
-        SetTime();
-    }
-
-    public Clock GetClock()
+        new SystemClock(),
+        new CustomClock(DateTime.Now)
+    };
+    public IClock Current { get; set; }
+    public ClockService()
     {
-        return _clock;
+        Current = AvailableClocks[0];
     }
-
-    public void SetTime() {
-        _clock.CurrentTime = TimeOnly.FromDateTime(DateTime.Now);
-    }
-
-    private void OnTick(object? sender, EventArgs e)
-    {
-        SetTime();
-        TimeUpdated?.Invoke();
-    }
-
-    public void Start()
-    {
-        if (_timer.IsRunning) return;
-        _timer.Start();
-    }
-
-    public void Stop()
-    {
-        _timer.Stop();
-    }
-
-    //public void ChangeSpeed(decimal speed) { }
+    public DateTime GetTime() => Current.Current;
 }
